@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, Linkedin } from "lucide-react";
 
 export function ContactSection() {
   return (
@@ -43,7 +43,7 @@ export function ContactSection() {
         </div>
 
         {/* Contact grid */}
-        <div className="grid gap-6 md:grid-cols-2 md:max-w-2xl md:mx-auto">
+        <div className="grid gap-6 md:grid-cols-3 md:max-w-4xl md:mx-auto">
           {/* Email */}
           <a
             href="mailto:teqfork@gmail.com"
@@ -82,6 +82,29 @@ export function ContactSection() {
             </p>
             <span className="inline-flex items-center gap-1 text-sm font-medium text-teal">
               +923196667336
+              <ArrowUpRight className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
+            </span>
+          </a>
+
+          {/* LinkedIn */}
+          <a
+            href="https://www.linkedin.com/company/teqfork/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-hover="true"
+            className="glass glass-hover border-glow group flex flex-col items-center rounded-[24px] p-8 text-center transition-all"
+          >
+            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-teal/10 transition-all duration-300 group-hover:bg-teal/20">
+              <Linkedin className="h-6 w-6 text-teal" />
+            </div>
+            <h3 className="mb-2 text-lg font-semibold text-foreground">
+              Follow Us
+            </h3>
+            <p className="mb-4 text-sm text-muted-foreground">
+              Stay updated on LinkedIn
+            </p>
+            <span className="inline-flex items-center gap-1 text-sm font-medium text-teal">
+              Teqfork
               <ArrowUpRight className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
             </span>
           </a>
