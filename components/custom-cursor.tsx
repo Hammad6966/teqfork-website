@@ -7,8 +7,10 @@ export function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     // Check if device is mobile/touch
     const checkMobile = () => {
       setIsMobile(window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
@@ -55,7 +57,7 @@ export function CustomCursor() {
     };
   }, []);
 
-  if (typeof window === "undefined" || isMobile) return null;
+  if (!mounted || isMobile) return null;
 
   return (
     <>

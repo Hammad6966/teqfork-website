@@ -14,19 +14,19 @@ export const teamMembers = [
   },
   {
     id: 2,
-    name: "Dr. Ahsan Rasheed",
-    role: "Co-Founder",
-    bio: "Oversees strategic business initiatives and executive planning, bridging vision with execution.",
+    name: "Ahmad Suleman",
+    role: "DevOps & Cloud Lead",
+    bio: "Oversees strategic business initiatives and executive planning, bridging vision with execution. Crafting our identiity in cloud and solutions",
     imageUrl: "/co-founder.jpg",
-    linkedinUrl: "https://www.linkedin.com/in/ahsan-rasheed-6b3342327?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+    linkedinUrl: "https://www.linkedin.com/in/ahmad-s-812134316"
   },
   {
     id: 3,
-    name: "Saram Chatha",
-    role: "Head of Operations",
-    bio: "Ensures projects are delivered on time and within scope, managing the bridge between client needs and development.",
-    imageUrl: "/saram.jpeg",
-    linkedinUrl: "https://www.linkedin.com/in/saramchatha?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+    name: "Kaab Bhinder",
+    role: "Senior Web Engineer",
+    bio: "Specializes in high-performance React, Next.js sites, crafting our digital presence, one project at a time.",
+    imageUrl: "/kaab.jpeg",
+    linkedinUrl: "https://www.linkedin.com/in/kaab-bhinder"
   },
   {
     id: 4,
@@ -38,12 +38,12 @@ export const teamMembers = [
   },
   {
     id: 5,
-    name: "Muhammad Uzair",
-    role: "Mobile and Web Architect",
-    bio: "Specializes in high-performance React, Next.js sites, and Flutter cross-platform mobile solutions for iOS and Android.",
-    imageUrl: "/uzair.jpeg",
-    linkedinUrl: "https://www.linkedin.com/in/muhammad-uzair-226257289?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
-  }
+    name: "Saram Chatha",
+    role: "Head of Operations",
+    bio: "Ensures projects are delivered on time and within scope, managing the bridge between client needs and development.",
+    imageUrl: "/saram.jpeg",
+    linkedinUrl: "https://www.linkedin.com/in/saramchatha?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+  },
 ];
 
 export function AboutSection() {
