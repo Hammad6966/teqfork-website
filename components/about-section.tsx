@@ -17,7 +17,7 @@ export const teamMembers = [
     name: "Ahmad Suleman",
     role: "DevOps & Cloud Lead",
     bio: "Oversees strategic business initiatives and executive planning, bridging vision with execution. Crafting our identiity in cloud and solutions",
-    imageUrl: "/co-founder.jpg",
+    imageUrl: "/co-founder.jpeg",
     linkedinUrl: "https://www.linkedin.com/in/ahmad-s-812134316"
   },
   {
@@ -147,4 +147,5 @@ export function AboutSection() {
     </section>
   );
 }
+
 

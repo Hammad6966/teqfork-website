@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     "Architecting Digital Excellence. We build premium, scalable software solutions for forward-thinking businesses.",
   generator: "Teqfork",
   icons: {
-    icon: "/teqfork.png",
-    apple: "/teqfork.png",
+    icon: "/teqfork_logo.webp",
+    apple: "/teqfork_logo.webp",
   },
 };
 
@@ -46,3 +46,4 @@ export default function RootLayout({
     </html>
   );
 }
+

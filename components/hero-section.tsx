@@ -52,7 +52,7 @@ export function HeroSection() {
           <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-teal/10 backdrop-blur-sm">
             {!logoError ? (
               <Image
-                src="/teqfork.png"
+                src="/teqfork_logo.webp"
                 alt="Teqfork Logo"
                 width={40}
                 height={40}
@@ -155,4 +155,5 @@ export function HeroSection() {
     </section>
   );
 }
+
 
