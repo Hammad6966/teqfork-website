@@ -13,6 +13,22 @@ export const teamMembers = [
     linkedinUrl: "https://www.linkedin.com/in/hammad-anwar-416220319?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
   },
   {
+    id: 6,
+    name: "Faizan Jameel",
+    role: "Co-Founder",
+    bio: "Drives innovation and strategic growth initiatives, shaping the future direction of Teqfork's digital solutions and market presence.",
+    imageUrl: "/faizan.jpeg",
+    linkedinUrl: "https://www.linkedin.com/in/faizan-jameel-382953200?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+  },
+  {
+    id: 5,
+    name: "Saram Chatha",
+    role: "Head of Operations",
+    bio: "Ensures projects are delivered on time and within scope, managing the bridge between client needs and development.",
+    imageUrl: "/saram.jpeg",
+    linkedinUrl: "https://www.linkedin.com/in/saramchatha?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+  },
+  {
     id: 2,
     name: "Ahmad Suleman",
     role: "DevOps & Cloud Lead",
@@ -35,14 +51,6 @@ export const teamMembers = [
     bio: "Your primary point of contact for new partnerships. Dedicated to finding the right digital fit for your business goals.",
     imageUrl: "/abubakar.jpeg",
     linkedinUrl: "https://www.linkedin.com/in/muhammad-abu-bakar-b94904311?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
-  },
-  {
-    id: 5,
-    name: "Saram Chatha",
-    role: "Head of Operations",
-    bio: "Ensures projects are delivered on time and within scope, managing the bridge between client needs and development.",
-    imageUrl: "/saram.jpeg",
-    linkedinUrl: "https://www.linkedin.com/in/saramchatha?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
   },
 ];
 
