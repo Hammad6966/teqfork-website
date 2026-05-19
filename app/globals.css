@@ -137,7 +137,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    cursor: none;
   }
   html {
     scroll-behavior: smooth;
@@ -194,4 +193,120 @@
     pointer-events: none;
     mix-blend-mode: overlay;
   }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(0, 245, 255, 0); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2.5s ease-in-out infinite;
+}
+
+@keyframes dotgrid-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+/* ─── 3D Cursor Parallax ───────────────────────────────────────────────────
+   --cx and --cy are set by cursor-3d.tsx (-0.5 → +0.5).
+   All transforms are CSS-only — zero JS re-renders, GPU-accelerated.
+   transition: transform gives the smooth "lag behind" feel.
+────────────────────────────────────────────────────────────────────────── */
+
+/* Dot grid: drifts slowly opposite to cursor (deep layer) */
+.parallax-dots {
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transform:
+    translateX(calc(var(--cx, 0) * -28px))
+    translateY(calc(var(--cy, 0) * -18px));
+  will-change: transform;
+}
+
+/* Sphere / hero right column: follows cursor gently (mid layer) */
+.parallax-sphere {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform:
+    translateX(calc(var(--cx, 0) * 18px))
+    translateY(calc(var(--cy, 0) * 12px));
+  will-change: transform;
+}
+
+/* Hero text left column: very subtle push opposite to cursor */
+.parallax-text {
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform:
+    translateX(calc(var(--cx, 0) * -10px))
+    translateY(calc(var(--cy, 0) * -6px));
+  will-change: transform;
+}
+
+/* Cards: 3D tilt on hover — pure CSS, no JS */
+.card-3d {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transform-style: preserve-3d;
+  transform:
+    perspective(900px)
+    rotateX(calc(var(--cy, 0) * -6deg))
+    rotateY(calc(var(--cx, 0) *  6deg))
+    translateZ(0);
+  will-change: transform;
+}
+
+.card-3d:hover {
+  transform:
+    perspective(900px)
+    rotateX(calc(var(--cy, 0) * -8deg))
+    rotateY(calc(var(--cx, 0) *  8deg))
+    translateY(-4px)
+    translateZ(8px);
+  box-shadow: 0 20px 60px rgba(0, 245, 255, 0.08);
+}
+
+/* Hero staggered fade-up — pure CSS, zero JS */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-fade-1 { animation: heroFadeUp 0.5s ease both; animation-delay: 0.1s; }
+.hero-fade-2 { animation: heroFadeUp 0.5s ease both; animation-delay: 0.25s; }
+.hero-fade-3 { animation: heroFadeUp 0.5s ease both; animation-delay: 0.4s; }
+.hero-fade-4 { animation: heroFadeUp 0.5s ease both; animation-delay: 0.55s; }
+.hero-fade-5 { animation: heroFadeUp 0.5s ease both; animation-delay: 0.7s; }
+
+/* Floating sphere */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+.float-anim { animation: float 4s ease-in-out infinite; }
+
+/* Scroll dot */
+@keyframes scrollDrop {
+  0%   { opacity: 1; transform: translateY(0); }
+  80%  { opacity: 0; transform: translateY(28px); }
+  100% { opacity: 0; transform: translateY(28px); }
+}
+.scroll-dot-anim {
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: #00F5FF;
+  margin: 0 auto;
+  animation: scrollDrop 1.6s ease-in-out infinite;
+}
+
+/* Section scroll reveal */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fadeUp 0.55s ease both;
+  animation-play-state: paused;
+}
+.fade-up.visible {
+  animation-play-state: running;
 }

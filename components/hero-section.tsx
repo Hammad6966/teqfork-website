@@ -1,154 +1,186 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { WireframeSphere } from "./wireframe-sphere";
-import { ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import WireframeSphere from "./wireframe-sphere";
+
+const navLinks = [
+  { label: "Services", href: "#lab" },
+  { label: "Work", href: "#work" },
+  { label: "Process", href: "#process" },
+  { label: "Testimonials", href: "#testimonials" },
+  { label: "Contact", href: "#contact" },
+];
 
 export function HeroSection() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [menuOpen, setMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect();
-        setMousePos({
-          x: (e.clientX - rect.left) / rect.width,
-          y: (e.clientY - rect.top) / rect.height,
-        });
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   return (
-    <section
-      ref={heroRef}
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6"
-    >
-      {/* Mesh gradient background */}
+    <section className="relative min-h-screen flex flex-col overflow-hidden bg-[#050505]" id="hero">
+      {/* Static mesh gradient — no JS mouse tracking */}
+      <div className="absolute inset-0 pointer-events-none mesh-gradient" />
+
+      {/* Static dot grid — parallax layer */}
       <div
-        className="pointer-events-none absolute inset-0 transition-all duration-700"
+        className="absolute inset-0 pointer-events-none parallax-dots"
         style={{
-          background: `
-            radial-gradient(ellipse 80% 50% at ${20 + mousePos.x * 15}% ${40 + mousePos.y * 10}%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
-            radial-gradient(ellipse 60% 40% at ${80 - mousePos.x * 10}% ${60 - mousePos.y * 10}%, rgba(0, 245, 255, 0.06) 0%, transparent 50%),
-            radial-gradient(ellipse 100% 100% at 50% 100%, rgba(0, 245, 255, 0.04) 0%, transparent 50%)
-          `,
+          backgroundImage: "radial-gradient(circle, rgba(0,245,255,0.1) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+          maskImage: "radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 0%, black 40%, transparent 100%)",
         }}
       />
 
-      {/* Noise overlay */}
-      <div className="noise pointer-events-none absolute inset-0" />
-
-      {/* Navigation */}
-      <nav className="absolute left-0 right-0 top-0 z-20 flex items-center justify-between px-8 py-6 lg:px-16">
+      {/* NAVBAR */}
+      <nav className="relative z-50 flex items-center justify-between px-6 md:px-12 py-5">
         <Link href="/" className="flex items-center gap-2">
-          <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-teal/10 backdrop-blur-sm">
-            {!logoError ? (
-              <Image
-                src="/teqfork_logo.webp"
-                alt="Teqfork Logo"
-                width={40}
-                height={40}
-                className="object-contain"
-                onError={() => setLogoError(true)}
-                priority
-              />
-            ) : (
-              <span className="text-lg font-bold text-teal">T</span>
-            )}
-          </div>
-          <span className="text-lg font-semibold tracking-tight text-foreground">
-            Teqfork
-          </span>
+          {!logoError ? (
+            <Image
+              src="/teqfork_logo.webp"
+              alt="Teqfork"
+              width={40}
+              height={40}
+              className="rounded-sm"
+              priority
+              onError={() => setLogoError(true)}
+            />
+          ) : (
+            <div className="w-10 h-10 rounded-sm bg-[#00F5FF] flex items-center justify-center text-black font-bold text-lg">T</div>
+          )}
+          <span className="text-white font-semibold text-lg tracking-tight">Teqfork</span>
         </Link>
-        <div className="hidden items-center gap-8 md:flex">
-          <a
-            href="#lab"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Work
-          </a>
-          <a
-            href="#process"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Process
-          </a>
-          <a
-            href="#contact"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Contact
-          </a>
+
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <a key={link.label} href={link.href} className="text-gray-400 hover:text-white text-sm font-medium transition-colors duration-200">
+              {link.label}
+            </a>
+          ))}
         </div>
+
         <a
-          href="#contact"
-          data-hover="true"
-          className="border-glow rounded-[24px] border border-teal/30 bg-teal/10 px-6 py-2.5 text-sm font-medium text-teal backdrop-blur-sm transition-all hover:border-teal/50 hover:bg-teal/20 hover:shadow-[0_0_40px_rgba(0,245,255,0.18)]"
+          href="https://calendly.com/teqfork/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-flex items-center gap-2 bg-[#00F5FF] text-black font-semibold px-5 py-2.5 rounded-full text-sm hover:brightness-110 transition-all duration-200"
         >
-          Start a Project
+          Book Free AI Audit
         </a>
+
+        <button className="md:hidden text-white p-2" onClick={() => setMenuOpen(true)} aria-label="Open menu">
+          <Menu size={24} />
+        </button>
       </nav>
 
-      {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center text-center">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal/20 bg-teal/5 px-4 py-1.5 backdrop-blur-sm">
-          <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-teal" />
-          <span className="text-xs font-medium tracking-wide text-teal">
-            PREMIUM SOFTWARE ENGINEERING
-          </span>
-        </div>
-
-        <h1 className="mb-6 max-w-4xl text-5xl font-bold leading-[1.1] tracking-tight md:text-7xl lg:text-8xl">
-          <span className="text-gradient">Architecting</span>
-          <br />
-          <span className="text-foreground">Digital Excellence</span>
-        </h1>
-
-        <p className="mb-10 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-          We craft premium software solutions that scale. From concept to
-          deployment, we architect systems that define the future.
-        </p>
-
-        <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <a
-            href="#work"
-            data-hover="true"
-            className="group flex items-center gap-2 rounded-[24px] bg-teal px-8 py-4 text-sm font-semibold text-background transition-all hover:shadow-[0_0_40px_rgba(0,245,255,0.3)]"
+      {/* Mobile overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "tween", duration: 0.25 }}
+            className="fixed inset-0 z-[100] bg-[#050505]/98 backdrop-blur-xl flex flex-col"
           >
-            Explore Our Work
-            <ChevronDown className="h-4 w-4 rotate-[-90deg] transition-transform group-hover:translate-x-1" />
-          </a>
-          <a
-            href="#process"
-            data-hover="true"
-            className="rounded-[24px] border border-border bg-card/50 px-8 py-4 text-sm font-semibold text-foreground backdrop-blur-sm transition-all hover:border-teal/30 hover:bg-card"
-          >
-            View Process
-          </a>
+            <div className="flex items-center justify-between px-6 py-5">
+              <span className="text-white font-semibold text-lg">Teqfork</span>
+              <button onClick={() => setMenuOpen(false)} className="text-white p-2" aria-label="Close menu">
+                <X size={24} />
+              </button>
+            </div>
+            <div className="flex flex-col items-center justify-center flex-1 gap-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-white text-3xl font-semibold hover:text-[#00F5FF] transition-colors"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href="https://calendly.com/teqfork/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 bg-[#00F5FF] text-black font-bold px-8 py-3 rounded-full text-lg"
+                onClick={() => setMenuOpen(false)}
+              >
+                Book Free AI Audit
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* HERO CONTENT */}
+      <div className="relative z-10 flex-1 flex items-center">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          {/* Left — parallax text layer */}
+          <div className="flex flex-col gap-6 parallax-text">
+            <div className="hero-fade-1 inline-flex w-fit items-center gap-2 bg-[rgba(0,245,255,0.1)] border border-[rgba(0,245,255,0.3)] text-[#00F5FF] text-xs font-semibold tracking-widest px-4 py-2 rounded-full">
+              <span className="w-2 h-2 rounded-full bg-[#00F5FF] animate-pulse" />
+              AI AUTOMATION AGENCY
+            </div>
+
+            <h1 className="hero-fade-2 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gradient">
+              We automate the busywork costing your business $5,000 a month
+            </h1>
+
+            <p className="hero-fade-3 text-gray-400 text-lg leading-relaxed max-w-xl">
+              AI receptionists, calling agents, and booking systems for clinics, service businesses, and traders — built and running in 2 weeks.
+            </p>
+
+            <div className="hero-fade-4 flex flex-wrap gap-4 items-center">
+              <a
+                href="https://calendly.com/teqfork/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#00F5FF] text-black font-bold px-7 py-3.5 rounded-full text-sm hover:brightness-110 transition-all duration-200 animate-pulse-slow"
+              >
+                Book Free AI Audit →
+              </a>
+              <a
+                href="#work"
+                className="inline-flex items-center gap-2 border border-[rgba(0,245,255,0.4)] text-[#00F5FF] font-semibold px-7 py-3.5 rounded-full text-sm hover:bg-[rgba(0,245,255,0.08)] transition-colors duration-200"
+              >
+                See Our Work
+              </a>
+            </div>
+
+            <div className="hero-fade-5 flex flex-wrap gap-8 pt-4 border-t border-white/5">
+              {[
+                { value: "5+", label: "AI Systems Built" },
+                { value: "3", label: "Countries Served" },
+                { value: "2-Week", label: "Delivery" },
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col">
+                  <span className="text-[#00F5FF] text-2xl font-bold">{stat.value}</span>
+                  <span className="text-gray-500 text-xs mt-0.5">{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — parallax sphere layer */}
+          <div className="hidden md:flex items-center justify-center hero-fade-2 parallax-sphere" style={{ animationDelay: "0.3s" }}>
+            <div className="float-anim">
+              <WireframeSphere />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Floating 3D Sphere */}
-      <div className="pointer-events-none absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 opacity-60 lg:translate-x-0 lg:translate-y-0">
-        <WireframeSphere />
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+      {/* Scroll indicator — pure CSS */}
+      <div className="hero-fade-5 relative z-10 flex justify-center pb-8">
         <div className="flex flex-col items-center gap-2">
-          <span className="text-xs uppercase tracking-widest text-muted-foreground">
-            Scroll
-          </span>
-          <div className="flex h-10 w-6 items-start justify-center rounded-full border border-border p-1.5">
-            <div className="h-2 w-1 animate-bounce rounded-full bg-teal" />
+          <span className="text-gray-600 text-xs tracking-widest uppercase">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-[#00F5FF]/30 to-transparent relative overflow-hidden">
+            <div className="scroll-dot-anim" />
           </div>
         </div>
       </div>
@@ -156,4 +188,4 @@ export function HeroSection() {
   );
 }
 
-
+export default HeroSection;

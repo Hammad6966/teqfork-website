@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm --version)",
+      "Bash(npm view:*)",
+      "Bash(rm -rf app/case-studies/ai-healthcare-agent app/case-studies/ecommerce-ecosystem app/case-studies/fintech-platform app/case-studies/real-estate-portal app/case-studies/restaurant-management app/case-studies/school-erp)",
+      "Bash(rm -rf app/services/ai-agents-n8n app/services/ai-automation app/services/app-development app/services/digital-solutions app/services/networking-cloud app/services/web-development)",
+      "Bash(mkdir -p app/case-studies/zainab-traders app/case-studies/ibrahim-engineering app/case-studies/gov-college app/case-studies/dental-usa app/case-studies/doctor-multan)",
+      "Bash(mkdir -p app/services/ai-receptionist app/services/ai-calling-agents app/services/ai-booking-automation app/services/custom-ai-platforms)",
+      "Bash(npm run:*)"
+    ]
+  }
+}

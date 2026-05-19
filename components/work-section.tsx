@@ -1,129 +1,156 @@
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+"use client";
 
-const CASE_STUDIES = [
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useRef } from "react";
+
+const caseStudies = [
   {
-    title: "Restaurant Management",
-    subtitle: "POS & ordering for 15+ branches in Lahore.",
-    size: "lg",
-    slug: "restaurant-management",
+    title: "AI Management System — Zainab Traders",
+    tag: "AI Automation + Calling Agent",
+    description:
+      "Built a complete AI-powered goods management system with dynamic pricing engine and an AI calling agent that handles bookings automatically. Eliminated manual order tracking entirely.",
+    client: "Ch Umar, CEO — Zainab Traders",
+    location: "Pakistan",
+    link: "/case-studies/zainab-traders",
+    size: "large",
+    flag: "🇵🇰",
   },
   {
-    title: "School ERP System",
-    subtitle: "Managing 3,200+ students across 4 campuses.",
-    size: "md",
-    slug: "school-erp",
+    title: "E-Commerce Platform + SEO AI Agent",
+    tag: "E-Commerce + AI SEO",
+    description:
+      "Full e-commerce platform for engineering parts distribution with an AI SEO agent that continuously optimizes product listings and drives organic traffic.",
+    client: "Mehar Qasim, CEO — Ibrahim Engineering Services",
+    location: "Pakistan",
+    link: "/case-studies/ibrahim-engineering",
+    size: "medium",
+    flag: "🇵🇰",
   },
   {
-    title: "Real Estate Portal",
-    subtitle: "5,800+ property listings in Karachi.",
-    size: "md",
-    slug: "real-estate-portal",
+    title: "College Portal — Govt Graduate College Civil Lines",
+    tag: "Web Platform + Mobile App",
+    description:
+      "Complete college website with courses management system and React Native student portal. Serves faculty, students, and administration from one platform.",
+    client: "Dr. Asad, Assistant Professor",
+    location: "Pakistan",
+    link: "/case-studies/gov-college",
+    size: "medium",
+    flag: "🇵🇰",
   },
   {
-    title: "E-commerce Ecosystem",
-    subtitle: "High-scale retail solution.",
-    size: "md",
-    slug: "ecommerce-ecosystem",
+    title: "AI Dental Receptionist — USA",
+    tag: "AI Receptionist + Booking",
+    description:
+      "AI receptionist and automated booking system deployed for dental practices in the United States. Client details confidential.",
+    client: "Confidential",
+    location: "United States",
+    link: "/case-studies/dental-usa",
+    size: "small",
+    flag: "🇺🇸",
   },
   {
-    title: "AI Healthcare Agent",
-    subtitle: "Patient triage automation.",
-    size: "md",
-    slug: "ai-healthcare-agent",
+    title: "AI Doctor Receptionist — Multan",
+    tag: "AI Calling Agent + Booking",
+    description:
+      "AI receptionist, calling agent, and automated booking platform for an MBBS physician. Reduced missed appointments by handling all incoming patient communication.",
+    client: "Confidential",
+    location: "Pakistan",
+    link: "/case-studies/doctor-multan",
+    size: "small",
+    flag: "🏥",
   },
-  {
-    title: "FinTech Platform",
-    subtitle: "Secure banking infrastructure.",
-    size: "md",
-    slug: "fintech-platform",
-  },
-] as const;
+];
 
 export function WorkSection() {
+  const ref = useRef<HTMLDivElement>(null);
+
   return (
-    <section id="work" className="relative px-6 py-24 md:py-32">
-      <div className="mx-auto w-full max-w-6xl">
-        {/* Header */}
-        <div className="mb-12 flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-10 bg-teal/60" />
-            <span className="text-xs font-semibold tracking-[0.22em] text-teal">
-              OUR WORK
-            </span>
-            <span className="h-px flex-1 bg-teal/10" />
+    <section id="work" className="relative py-24 md:py-32 bg-[#050505]">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col items-center text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 bg-[rgba(0,245,255,0.08)] border border-[rgba(0,245,255,0.2)] text-[#00F5FF] text-xs font-semibold tracking-widest px-4 py-2 rounded-full mb-4">
+            CASE STUDIES
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Case Studies
-          </h2>
-          <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            A snapshot of the systems we architect—built for security, scale,
-            and longevity across regulated and high-demand environments.
-          </p>
-        </div>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">Real Clients. Real Results.</h2>
+          <p className="text-gray-400 max-w-xl text-lg">Every system we build solves a real business problem.</p>
+        </motion.div>
 
-        {/* Bento / Masonry grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:auto-rows-[220px]">
-          {CASE_STUDIES.map((caseStudy, index) => {
-            const isLarge = caseStudy.size === "lg";
-            const colSpan =
-              index === 0 ? "md:col-span-2 md:row-span-2" : "md:col-span-1";
-
-            return (
-              <Link
-                key={caseStudy.title}
-                href={`/case-studies/${caseStudy.slug}`}
-                data-hover="true"
-                className={`group relative block overflow-hidden rounded-3xl border-glow bg-charcoal/90 transition-all ${colSpan}`}
-              >
-                {/* Teal glow background */}
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="absolute inset-[-40%] bg-[radial-gradient(circle_at_top,_rgba(0,245,255,0.2),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(0,245,255,0.16),_transparent_55%)]" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" ref={ref}>
+          {/* Large card — full width on its row */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
+            className="md:col-span-2"
+          >
+            <Link href={caseStudies[0].link} className="glass glass-hover border-glow rounded-2xl p-8 md:p-10 flex flex-col md:flex-row gap-8 group block card-3d" data-hover="true">
+              <div className="flex-1 flex flex-col gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-semibold text-[#00F5FF] bg-[rgba(0,245,255,0.1)] px-3 py-1 rounded-full">{caseStudies[0].tag}</span>
+                  <span className="text-sm text-gray-500">{caseStudies[0].flag} {caseStudies[0].location}</span>
                 </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white">{caseStudies[0].title}</h3>
+                <p className="text-gray-400 leading-relaxed max-w-2xl">{caseStudies[0].description}</p>
+                <p className="text-gray-500 text-sm mt-auto">{caseStudies[0].client}</p>
+                <span className="text-[#00F5FF] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">View case study →</span>
+              </div>
+            </Link>
+          </motion.div>
 
-                {/* Image placeholder */}
-                <div className="absolute inset-0">
-                  <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-charcoal-light to-black" />
-                  <div className="absolute inset-0 opacity-60 mix-blend-soft-light">
-                    <div className="mesh-gradient h-full w-full" />
-                  </div>
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(0,245,255,0.22),_transparent_60%)]" />
+          {/* Medium cards */}
+          {caseStudies.slice(1, 3).map((cs, i) => (
+            <motion.div
+              key={cs.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+            >
+              <Link href={cs.link} className="glass glass-hover border-glow rounded-2xl p-6 md:p-8 flex flex-col gap-4 h-full group block card-3d" data-hover="true">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-semibold text-[#00F5FF] bg-[rgba(0,245,255,0.1)] px-3 py-1 rounded-full">{cs.tag}</span>
+                  <span className="text-sm text-gray-500">{cs.flag} {cs.location}</span>
                 </div>
-
-                {/* Content */}
-                <div className="relative flex h-full flex-col justify-between p-6 md:p-8">
-                  <div className="space-y-3">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-black/40 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-teal/80 ring-1 ring-teal/25 backdrop-blur-md">
-                      <span className="h-1.5 w-1.5 rounded-full bg-teal shadow-[0_0_12px_rgba(0,245,255,0.8)]" />
-                      <span>{isLarge ? "Flagship Architecture" : "Applied Systems"}</span>
-                    </div>
-                    <h3 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-                      {caseStudy.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-                      {caseStudy.subtitle}
-                    </p>
-                  </div>
-
-                  <div className="mt-6 flex items-center justify-between text-xs font-medium text-muted-foreground">
-                    <span className="flex items-center gap-2">
-                      <span className="h-px w-6 bg-teal/60" />
-                      <span className="tracking-[0.22em] text-[10px] uppercase">
-                        View case study
-                      </span>
-                    </span>
-                    <ChevronRight className="h-4 w-4 text-teal transition-transform duration-300 group-hover:translate-x-1" />
-                  </div>
-                </div>
-
-                {/* Lift + glow on hover */}
-                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-teal/15 transition-all duration-300 group-hover:-translate-y-1 group-hover:ring-teal/50 group-hover:shadow-[0_0_40px_rgba(0,245,255,0.28)]" />
+                <h3 className="text-xl font-bold text-white">{cs.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{cs.description}</p>
+                <p className="text-gray-500 text-sm mt-auto">{cs.client !== "Confidential" ? cs.client : ""}</p>
+                <span className="text-[#00F5FF] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">View case study →</span>
               </Link>
-            );
-          })}
+            </motion.div>
+          ))}
+
+          {/* Small cards */}
+          {caseStudies.slice(3).map((cs, i) => (
+            <motion.div
+              key={cs.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: (i + 2) * 0.1, duration: 0.5 }}
+            >
+              <Link href={cs.link} className="glass glass-hover border-glow rounded-2xl p-6 flex flex-col gap-3 h-full group block card-3d" data-hover="true">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-semibold text-[#00F5FF] bg-[rgba(0,245,255,0.1)] px-3 py-1 rounded-full">{cs.tag}</span>
+                  <span className="text-sm text-gray-500">{cs.flag} {cs.location}</span>
+                </div>
+                <h3 className="text-lg font-bold text-white">{cs.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{cs.description}</p>
+                <span className="text-[#00F5FF] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity mt-auto">View case study →</span>
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
+export default WorkSection;

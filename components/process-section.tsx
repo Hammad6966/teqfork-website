@@ -68,7 +68,17 @@ export function ProcessSection() {
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    let rafId: number | null = null;
+
     const handleScroll = () => {
+      if (rafId) return; // skip if a frame is already queued
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        calculate();
+      });
+    };
+
+    const calculate = () => {
       if (!sectionRef.current) return;
 
       const newProgress = stepRefs.current.map((ref, index) => {
@@ -98,10 +108,13 @@ export function ProcessSection() {
       setActiveIndex(activeStep);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    calculate(); // run once on mount
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
@@ -290,3 +303,5 @@ export function ProcessSection() {
     </section>
   );
 }
+
+export default ProcessSection;

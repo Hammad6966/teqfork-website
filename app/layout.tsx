@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { CustomCursor } from "@/components/custom-cursor";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import Cursor3D from "@/components/cursor-3d";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,10 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Teqfork | Premium Software Engineering Studio",
+  title: "Teqfork | AI Automation Agency",
   description:
-    "Architecting Digital Excellence. We build premium, scalable software solutions for forward-thinking businesses.",
-  generator: "Teqfork",
+    "AI receptionists, calling agents, and booking systems for clinics, service businesses, and traders — built and running in 2 weeks.",
   icons: {
     icon: "/teqfork_logo.webp",
     apple: "/teqfork_logo.webp",
@@ -31,19 +30,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div
-          className="noise pointer-events-none fixed inset-0 z-0"
-          aria-hidden="true"
-        />
-        <div className="relative z-10">{children}</div>
-        <CustomCursor />
+    <html lang="en" className="dark">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050505] text-[#f5f5f5] overflow-x-hidden`}>
+        <div className="noise fixed inset-0 pointer-events-none z-[999]" />
+        <Cursor3D />
+        {children}
         <Analytics />
+        {/* Lightweight scroll reveal — no library needed */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function(){
+            var io = new IntersectionObserver(function(entries){
+              entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.1 });
+            function observe(){
+              document.querySelectorAll('.fade-up').forEach(function(el){ io.observe(el); });
+            }
+            if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',observe);
+            else observe();
+          })();
+        ` }} />
       </body>
     </html>
   );
 }
-

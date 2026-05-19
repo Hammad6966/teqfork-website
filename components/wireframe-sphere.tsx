@@ -103,3 +103,4 @@ export function WireframeSphere() {
   );
 }
 
+export default WireframeSphere;

@@ -1,116 +1,84 @@
-import type { ComponentPropsWithoutRef } from "react";
+"use client";
+
 import Link from "next/link";
-import { ArrowUpRight, Bot, BrainCircuit, Code, Laptop, Network } from "lucide-react";
+import { Phone, Bot, Calendar, Layers } from "lucide-react";
 
 const services = [
   {
-    title: "Web Development",
-    description: "High-performance React/Next.js architectures.",
-    Icon: Code,
-    slug: "web-development",
+    icon: Phone,
+    title: "AI Receptionist Systems",
+    description:
+      "Never miss a lead again. Our AI receptionists answer calls, qualify prospects, and book appointments 24/7 — while you focus on the work.",
+    link: "/services/ai-receptionist",
   },
   {
-    title: "App Development",
-    description: "Cross-platform Flutter & Native solutions.",
-    Icon: SmartphoneIcon,
-    slug: "app-development",
+    icon: Bot,
+    title: "AI Calling Agents",
+    description:
+      "Outbound and inbound AI calling agents that sound human, handle objections, and convert leads into booked appointments automatically.",
+    link: "/services/ai-calling-agents",
   },
   {
-    title: "Networking & Cloud",
-    description: "Secure infrastructure design.",
-    Icon: Network,
-    slug: "networking-cloud",
+    icon: Calendar,
+    title: "AI Booking Automation",
+    description:
+      "End-to-end booking automation — from first contact to confirmed appointment. Integrated with your existing calendar and CRM tools.",
+    link: "/services/ai-booking-automation",
   },
   {
-    title: "AI Automation",
-    description: "Workflow optimization.",
-    Icon: BrainCircuit,
-    slug: "ai-automation",
+    icon: Layers,
+    title: "Custom AI Platforms",
+    description:
+      "Management systems, e-commerce platforms, and portals with AI agents built in — custom built for your exact workflow.",
+    link: "/services/custom-ai-platforms",
   },
-  {
-    title: "AI Agents & n8n",
-    description: "Autonomous agent workflows and n8n integrations.",
-    Icon: Bot,
-    slug: "ai-agents-n8n",
-  },
-  {
-    title: "Digital Solutions",
-    description: "Custom software & consulting.",
-    Icon: Laptop,
-    slug: "digital-solutions",
-  },
-] as const;
-
-function SmartphoneIcon(props: ComponentPropsWithoutRef<"svg">) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M9 2h6a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <path
-        d="M10.5 19.2h3"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+];
 
 export function LabSection() {
   return (
-    <section id="lab" className="relative px-6 py-24 md:py-32">
-      <div className="mx-auto w-full max-w-6xl">
-        <div className="mb-12 flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-10 bg-teal/60" />
-            <span className="text-xs font-semibold tracking-[0.22em] text-teal">
-              OUR EXPERTISE
-            </span>
-            <span className="h-px flex-1 bg-teal/10" />
+    <section id="lab" className="relative py-24 md:py-32 bg-[#050505]">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="fade-up flex flex-col items-center text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-[rgba(0,245,255,0.08)] border border-[rgba(0,245,255,0.2)] text-[#00F5FF] text-xs font-semibold tracking-widest px-4 py-2 rounded-full mb-4">
+            WHAT WE BUILD
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Our Expertise
-          </h2>
-          <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Premium engineering across web, mobile, cloud, and intelligent
-            automation—built to scale and designed to endure.
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">AI Systems That Replace Manual Work</h2>
+          <p className="text-gray-400 max-w-xl text-lg">
+            We build AI infrastructure that runs 24/7, handles your repetitive tasks, and pays for itself in the first month.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map(({ title, description, Icon, slug }) => (
-            <div
-              key={title}
-              data-hover="true"
-              className="glass border-glow group rounded-3xl p-6 transition-all hover:-translate-y-0.5"
-            >
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-teal/10 text-teal ring-1 ring-teal/15">
-                <Icon className="h-6 w-6" />
-              </div>
-              <h3 className="mb-2 text-lg font-semibold tracking-tight text-foreground">
-                {title}
-              </h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {description}
-              </p>
-
-              <div className="mt-6 h-px w-full bg-gradient-to-r from-teal/25 via-teal/5 to-transparent opacity-70" />
-              <Link
-                href={`/services/${slug}`}
-                data-hover="true"
-                className="group/btn mt-4 inline-flex items-center gap-1.5 text-xs font-medium tracking-wide text-teal/80 transition-all hover:text-teal"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((service, i) => {
+            const Icon = service.icon;
+            return (
+              <div
+                key={service.title}
+                className="fade-up card-3d"
+                style={{ animationDelay: `${i * 0.1}s` }}
               >
-                Learn more
-                <ArrowUpRight className="h-3 w-3 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-              </Link>
-            </div>
-          ))}
+                <Link
+                  href={service.link}
+                  className="glass border border-white/5 hover:border-[rgba(0,245,255,0.25)] flex flex-col gap-5 p-8 rounded-2xl h-full group transition-colors duration-300 hover:bg-[rgba(0,245,255,0.03)] block"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-[rgba(0,245,255,0.08)] border border-[rgba(0,245,255,0.15)] flex items-center justify-center group-hover:bg-[rgba(0,245,255,0.15)] transition-colors duration-300">
+                    <Icon size={22} className="text-[#00F5FF]" />
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <h3 className="text-white font-semibold text-lg leading-tight">{service.title}</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">{service.description}</p>
+                  </div>
+                  <div className="mt-auto text-[#00F5FF] text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Learn more <span>→</span>
+                  </div>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
+export default LabSection;
