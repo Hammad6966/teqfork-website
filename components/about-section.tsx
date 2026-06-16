@@ -78,7 +78,7 @@ function MemberCard({ member }: { member: typeof team[0] }) {
         }}
       >
         {/* ── Photo area ────────────────────────────────────────────── */}
-        <div className="relative h-40 md:h-64 overflow-hidden">
+        <div className="relative h-32 md:h-64 overflow-hidden">
           {/* Image — scales up on hover */}
           <div
             className="w-full h-full"
@@ -111,12 +111,12 @@ function MemberCard({ member }: { member: typeof team[0] }) {
         </div>
 
         {/* ── Text content ──────────────────────────────────────────── */}
-        <div className="p-6 flex flex-col items-center text-center gap-3 border-t border-white/5">
+        <div className="p-3 md:p-6 flex flex-col items-center text-center gap-2 border-t border-white/5">
           <div>
-            <h3 className="text-white font-semibold text-lg leading-tight">
+            <h3 className="text-white font-semibold text-sm md:text-lg leading-tight">
               {member.name}
             </h3>
-            <p className="text-[#00F5FF] text-sm mt-1">{member.title}</p>
+            <p className="text-[#00F5FF] text-xs md:text-sm mt-0.5">{member.title}</p>
           </div>
 
           {/* LinkedIn — bounce on hover, only shown when provided */}
@@ -125,11 +125,11 @@ function MemberCard({ member }: { member: typeof team[0] }) {
               href={member.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-gray-500 hover:text-[#00F5FF] transition-colors duration-200 text-xs"
+              className="flex items-center gap-1 text-gray-500 hover:text-[#00F5FF] transition-colors duration-200 text-[10px] md:text-xs"
               whileHover={{ y: [0, -5, 0, -3, 0] }}
               transition={{ duration: 0.45, ease: "easeInOut" }}
             >
-              <Linkedin size={14} />
+              <Linkedin size={12} />
               LinkedIn
             </motion.a>
           )}
@@ -166,7 +166,7 @@ export function AboutSection() {
 
         {/* Staggered card grid */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+          className="grid grid-cols-3 gap-3 md:gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
