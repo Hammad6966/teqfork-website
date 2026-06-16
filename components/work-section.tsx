@@ -149,12 +149,13 @@ export function WorkSection() {
 
   const mobileScrollBy = (dir: "left" | "right") => {
     if (!mobileRef.current) return;
-    const cardWidth = 320; // card width on mobile
-    const gap = 16; // gap-4 = 16px
-    const scrollAmount = cardWidth + gap;
+    // Use the visible container width to scroll properly
+    const visibleWidth = mobileRef.current.clientWidth;
     const currentScroll = mobileRef.current.scrollLeft;
     const maxScroll = mobileRef.current.scrollWidth - mobileRef.current.clientWidth;
     
+    // Scroll by visible width minus small overlap for continuity
+    const scrollAmount = visibleWidth * 0.85;
     let nextScroll = dir === "left" 
       ? Math.max(0, currentScroll - scrollAmount)
       : Math.min(maxScroll, currentScroll + scrollAmount);
