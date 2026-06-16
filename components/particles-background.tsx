@@ -4,7 +4,7 @@
 export default function ParticlesBackground() {
   return (
     <div
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden"
       style={{
         backgroundImage: `radial-gradient(circle, rgba(0,245,255,0.12) 1px, transparent 1px)`,
         backgroundSize: "40px 40px",

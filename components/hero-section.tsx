@@ -47,7 +47,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden bg-[#050505] section-reveal" id="hero" data-reveal="true">
+    <section className="relative min-h-screen flex flex-col overflow-hidden bg-[#050505] section-reveal w-full max-w-[100vw]" id="hero" data-reveal="true">
       {/* Animated mesh gradient */}
       <div
         className="absolute inset-0 pointer-events-none animate-mesh-move"
@@ -300,7 +300,7 @@ export function HeroSection() {
           </div>
 
           {/* Right — AI circuit visual */}
-          <div className="hidden md:flex items-center justify-center hero-fade-2 parallax-sphere" style={{ animationDelay: "0.3s" }}>
+          <div className="hidden md:flex items-center justify-center hero-fade-2 parallax-sphere overflow-hidden max-w-full" style={{ animationDelay: "0.3s" }}>
             <AiCircuitVisual />
           </div>
         </div>

@@ -34,13 +34,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050505] text-[#f5f5f5] overflow-x-hidden`}>
-        <div className="noise fixed inset-0 pointer-events-none z-[999]" />
-        <Cursor3D />
-        <RevealObserver />
-        <SplashScreen>
-          {children}
-        </SplashScreen>
-        <Analytics />
+        <div className="w-full overflow-x-hidden">
+          <div className="noise fixed inset-0 pointer-events-none z-[999]" />
+          <Cursor3D />
+          <RevealObserver />
+          <SplashScreen>
+            {children}
+          </SplashScreen>
+          <Analytics />
+        </div>
         {/* Lightweight scroll reveal — no library needed */}
         <script dangerouslySetInnerHTML={{ __html: `
           (function(){
