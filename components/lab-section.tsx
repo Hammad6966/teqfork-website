@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Bot, Calendar, Layers } from "lucide-react";
+import { motion } from "framer-motion";
+import { Phone, Bot, Calendar, Cpu } from "lucide-react";
 
 const services = [
   {
@@ -10,6 +11,7 @@ const services = [
     description:
       "Never miss a lead again. Our AI receptionists answer calls, qualify prospects, and book appointments 24/7 — while you focus on the work.",
     link: "/services/ai-receptionist",
+    badge: "24/7",
   },
   {
     icon: Bot,
@@ -17,6 +19,7 @@ const services = [
     description:
       "Outbound and inbound AI calling agents that sound human, handle objections, and convert leads into booked appointments automatically.",
     link: "/services/ai-calling-agents",
+    badge: "AI-Powered",
   },
   {
     icon: Calendar,
@@ -24,20 +27,53 @@ const services = [
     description:
       "End-to-end booking automation — from first contact to confirmed appointment. Integrated with your existing calendar and CRM tools.",
     link: "/services/ai-booking-automation",
+    badge: "24/7",
   },
   {
-    icon: Layers,
+    icon: Cpu,
     title: "Custom AI Platforms",
     description:
       "Management systems, e-commerce platforms, and portals with AI agents built in — custom built for your exact workflow.",
     link: "/services/custom-ai-platforms",
+    badge: "AI-Powered",
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+  hovered: {
+    y: -8,
+    boxShadow: "0 20px 60px rgba(0,245,255,0.15)",
+    transition: { type: "spring", stiffness: 300, damping: 20 },
+  },
+};
+
+const borderVariants = {
+  hidden: { scaleX: 0 },
+  visible: { scaleX: 0 },
+  hovered: { scaleX: 1, transition: { duration: 0.3 } },
+};
+
 export function LabSection() {
   return (
-    <section id="lab" className="relative py-24 md:py-32 bg-[#050505]">
+    <section id="lab" className="relative py-24 md:py-32 bg-[#050505] section-reveal" data-reveal="true">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
+
+        {/* Section header */}
         <div className="fade-up flex flex-col items-center text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-[rgba(0,245,255,0.08)] border border-[rgba(0,245,255,0.2)] text-[#00F5FF] text-xs font-semibold tracking-widest px-4 py-2 rounded-full mb-4">
             WHAT WE BUILD
@@ -48,34 +84,64 @@ export function LabSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, i) => {
+        {/* 2×2 grid */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {services.map((service) => {
             const Icon = service.icon;
             return (
-              <div
+              <motion.div
                 key={service.title}
-                className="fade-up card-3d"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className="relative card-shimmer glass border border-white/5 rounded-2xl overflow-hidden group"
+                variants={cardVariants}
+                whileHover="hovered"
               >
+                {/* Animated bottom border */}
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#00F5FF] origin-left pointer-events-none z-10"
+                  variants={borderVariants}
+                />
+
+                {/* Card content */}
                 <Link
                   href={service.link}
-                  className="glass border border-white/5 hover:border-[rgba(0,245,255,0.25)] flex flex-col gap-5 p-8 rounded-2xl h-full group transition-colors duration-300 hover:bg-[rgba(0,245,255,0.03)] block"
+                  className="relative z-[1] flex flex-col gap-6 p-8 min-h-[280px] h-full"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-[rgba(0,245,255,0.08)] border border-[rgba(0,245,255,0.15)] flex items-center justify-center group-hover:bg-[rgba(0,245,255,0.15)] transition-colors duration-300">
-                    <Icon size={22} className="text-[#00F5FF]" />
+                  {/* Top row: icon + badge */}
+                  <div className="flex items-start justify-between">
+                    <div className="bg-[#00F5FF15] rounded-full p-4 flex items-center justify-center">
+                      <Icon size={48} className="text-[#00F5FF]" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[10px] font-bold tracking-widest border border-[rgba(0,245,255,0.3)] text-[#00F5FF] px-3 py-1 rounded-full bg-[rgba(0,245,255,0.06)] mt-1">
+                      {service.badge}
+                    </span>
                   </div>
-                  <div className="flex flex-col gap-3">
-                    <h3 className="text-white font-semibold text-lg leading-tight">{service.title}</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">{service.description}</p>
+
+                  {/* Text */}
+                  <div className="flex flex-col gap-3 flex-1">
+                    <h3 className="text-white font-semibold text-xl leading-tight">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
                   </div>
-                  <div className="mt-auto text-[#00F5FF] text-sm font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+                  {/* Learn more */}
+                  <div className="text-[#00F5FF] text-sm font-medium flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-200">
                     Learn more <span>→</span>
                   </div>
                 </Link>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );

@@ -23,7 +23,7 @@ export function ContactSection() {
     "w-full bg-[#0f0f0f] border border-white/10 text-white placeholder-gray-600 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#00F5FF]/50 focus:ring-1 focus:ring-[#00F5FF]/20 transition-colors duration-200";
 
   return (
-    <section id="contact" className="relative py-24 md:py-32 bg-[#050505]">
+    <section id="contact" className="relative py-24 md:py-32 bg-[#050505] section-reveal" data-reveal="true">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 

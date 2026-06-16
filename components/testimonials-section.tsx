@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
   {
@@ -28,47 +28,70 @@ const testimonials = [
   },
 ];
 
-function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: number }) {
+const cardVariants = {
+  enter:  { x: 100, opacity: 0 },
+  center: { x: 0,   opacity: 1 },
+  exit:   { x: -100, opacity: 0 },
+};
+
+function Avatar({ photo, name }: { photo: string; name: string }) {
   const [imgError, setImgError] = useState(false);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.15, duration: 0.5 }}
-      className="glass glass-hover border-glow rounded-2xl p-8 flex flex-col gap-6 card-3d"
-    >
-      <span className="text-6xl text-[#00F5FF] leading-none font-serif select-none">&ldquo;</span>
-      <p className="text-gray-300 leading-relaxed text-sm flex-1">{t.quote}</p>
-      <div className="flex items-center gap-4 pt-4 border-t border-white/5">
-        <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border border-[rgba(0,245,255,0.2)]">
-          {!imgError ? (
-            <Image
-              src={t.photo}
-              alt={t.name}
-              fill
-              className="object-cover"
-              onError={() => setImgError(true)}
-            />
-          ) : (
-            <div className="w-full h-full bg-[#00F5FF]/20 flex items-center justify-center text-[#00F5FF] font-bold text-lg">
-              {t.name[0]}
-            </div>
-          )}
+    <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 border-2 border-[rgba(0,245,255,0.3)]">
+      {!imgError ? (
+        <Image
+          src={photo}
+          alt={name}
+          fill
+          className="object-cover"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <div className="w-full h-full bg-[#00F5FF]/20 flex items-center justify-center text-[#00F5FF] font-bold text-xl">
+          {name[0]}
         </div>
-        <div>
-          <p className="text-white font-semibold text-sm">{t.name}</p>
-          <p className="text-[#00F5FF]/80 text-xs mt-0.5">{t.title}</p>
-        </div>
-      </div>
-    </motion.div>
+      )}
+    </div>
   );
 }
 
 export function TestimonialsSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number>(0);
+
+  // Auto-rotate every 3 s; pause while hovering
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      setActiveIndex((i) => (i + 1) % testimonials.length);
+    }, 3000);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  const goTo  = (i: number) => setActiveIndex(i);
+  const next  = () => setActiveIndex((i) => (i + 1) % testimonials.length);
+  const prev  = () => setActiveIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const delta = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 50) delta > 0 ? next() : prev();
+  };
+
+  const t = testimonials[activeIndex];
+
   return (
-    <section id="testimonials" className="relative py-24 md:py-32 bg-[#050505]">
+    <section
+      id="testimonials"
+      className="relative py-24 md:py-32 bg-[#050505] section-reveal"
+      data-reveal="true"
+    >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
+
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -83,11 +106,77 @@ export function TestimonialsSection() {
           <p className="text-gray-400 max-w-xl text-lg">Real results from real businesses</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
-            <TestimonialCard key={t.name} t={t} index={i} />
+        {/* Carousel — pause auto-rotation on hover, swipe on touch */}
+        <div
+          className="relative overflow-hidden"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              variants={cardVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="max-w-2xl mx-auto"
+            >
+              {/* Card */}
+              <div className="glass rounded-2xl p-8 md:p-12 relative overflow-hidden">
+
+                {/* Decorative background quote mark */}
+                <span
+                  className="absolute top-2 left-5 text-8xl font-bold text-[#00F5FF] leading-none select-none pointer-events-none"
+                  style={{ opacity: 0.2 }}
+                  aria-hidden="true"
+                >
+                  &ldquo;
+                </span>
+
+                {/* Quote text — padded so it clears the giant " */}
+                <p className="relative z-10 text-gray-200 text-lg md:text-xl leading-relaxed mt-10 mb-8 font-light">
+                  {t.quote}
+                </p>
+
+                {/* Author */}
+                <div className="relative z-10 border-t border-white/5 pt-6 flex items-center gap-4">
+                  <Avatar photo={t.photo} name={t.name} />
+                  <div>
+                    <p className="text-white font-semibold">{t.name}</p>
+                    <p className="text-[#00F5FF]/80 text-sm mt-0.5">{t.title}</p>
+                  </div>
+                  {/* Paused indicator */}
+                  {paused && (
+                    <span className="ml-auto text-[10px] text-gray-600 tracking-widest uppercase">
+                      paused
+                    </span>
+                  )}
+                </div>
+
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Dot indicators */}
+        <div className="flex items-center justify-center gap-2 mt-10">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`View testimonial ${i + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === activeIndex
+                  ? "w-8 bg-[#00F5FF]"
+                  : "w-2 bg-white/30 hover:bg-white/50"
+              }`}
+            />
           ))}
         </div>
+
       </div>
     </section>
   );

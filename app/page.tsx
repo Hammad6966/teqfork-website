@@ -1,5 +1,6 @@
 import HeroSection from "@/components/hero-section";
 import LabSection from "@/components/lab-section";
+import StatsBanner from "@/components/stats-banner";
 import WorkSection from "@/components/work-section";
 import TestimonialsSection from "@/components/testimonials-section";
 import ProcessSection from "@/components/process-section";
@@ -12,6 +13,7 @@ export default function Home() {
     <main>
       <HeroSection />
       <LabSection />
+      <StatsBanner />
       <WorkSection />
       <TestimonialsSection />
       <ProcessSection />
