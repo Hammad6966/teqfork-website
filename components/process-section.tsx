@@ -167,7 +167,7 @@ export function ProcessSection() {
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true, amount: 0.05 }}
-            transition={{ duration: 1.4, ease: "easeInOut" }}
+            transition={{ duration: 1.4 }}
           />
 
           {/* Steps */}
@@ -198,7 +198,6 @@ export function ProcessSection() {
                     transition={{
                       duration: 0.6,
                       delay: step.delay,
-                      ease: "easeInOut",
                     }}
                   >
                     {/* Icon + title */}

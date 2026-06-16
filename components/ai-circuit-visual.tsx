@@ -38,12 +38,12 @@ function StatCard({ label, value, greenDot, positionStyle, delay }: StatCardProp
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ delay, duration: 0.5, ease: "easeInOut" }}
+      transition={{ delay, duration: 0.5 }}
     >
       <motion.div
         className="bg-[rgba(5,20,26,0.9)] border border-[rgba(0,245,255,0.2)] rounded-xl px-3 py-2 backdrop-blur-sm"
         animate={{ y: [0, -8, 0] }}
-        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: delay * 0.4 }}
+        transition={{ repeat: Infinity, duration: 3, delay: delay * 0.4 }}
       >
         <p className="text-[9px] text-white/40 tracking-widest uppercase">{label}</p>
         <div className="flex items-center gap-1 mt-0.5">

@@ -146,7 +146,7 @@ function Stage2Background({ phase }: { phase: Phase }) {
         <motion.div
           initial={false}
           animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.5 }}
         >
           <div
             className="text-[56px] leading-none mb-6 select-none"
@@ -160,7 +160,7 @@ function Stage2Background({ phase }: { phase: Phase }) {
           className="text-4xl font-black tracking-tight text-white mb-3"
           initial={false}
           animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 20 }}
-          transition={{ delay: 0.15, duration: 0.5, ease: "easeInOut" }}
+          transition={{ delay: 0.15, duration: 0.5 }}
         >
           Automate Your Business
         </motion.h1>
@@ -170,7 +170,7 @@ function Stage2Background({ phase }: { phase: Phase }) {
           style={{ color: "rgba(255,255,255,0.5)" }}
           initial={false}
           animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 14 }}
-          transition={{ delay: 0.3, duration: 0.5, ease: "easeInOut" }}
+          transition={{ delay: 0.3, duration: 0.5 }}
         >
           AI-powered systems that work while you sleep
         </motion.p>
@@ -186,7 +186,6 @@ function Stage2Background({ phase }: { phase: Phase }) {
               transition={{
                 delay: 0.5 + i * 0.2,
                 duration: 0.4,
-                ease: "easeInOut",
               }}
             >
               {badge}
