@@ -58,7 +58,7 @@ const cardVariants = {
   hovered: {
     y: -8,
     boxShadow: "0 20px 60px rgba(0,245,255,0.15)",
-    transition: { type: "spring", stiffness: 300, damping: 20 },
+    transition: { duration: 0.3 },
   },
 };
 
