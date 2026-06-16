@@ -149,7 +149,17 @@ export function WorkSection() {
 
   const mobileScrollBy = (dir: "left" | "right") => {
     if (!mobileRef.current) return;
-    mobileRef.current.scrollBy({ left: dir === "left" ? -400 : 400, behavior: "smooth" });
+    const cardWidth = 320; // card width on mobile
+    const gap = 16; // gap-4 = 16px
+    const scrollAmount = cardWidth + gap;
+    const currentScroll = mobileRef.current.scrollLeft;
+    const maxScroll = mobileRef.current.scrollWidth - mobileRef.current.clientWidth;
+    
+    let nextScroll = dir === "left" 
+      ? Math.max(0, currentScroll - scrollAmount)
+      : Math.min(maxScroll, currentScroll + scrollAmount);
+    
+    mobileRef.current.scrollTo({ left: nextScroll, behavior: "smooth" });
   };
 
   return (
