@@ -38,7 +38,7 @@ function StatCard({ label, value, greenDot, positionStyle, delay }: StatCardProp
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ delay, duration: 0.5, ease: "easeInOut" }}
     >
       <motion.div
         className="bg-[rgba(5,20,26,0.9)] border border-[rgba(0,245,255,0.2)] rounded-xl px-3 py-2 backdrop-blur-sm"

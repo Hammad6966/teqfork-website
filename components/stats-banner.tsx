@@ -60,7 +60,7 @@ function StatItem({
       className="flex flex-col items-center justify-center gap-2 flex-1 px-8 py-10"
       initial={{ opacity: 0, y: 16 }}
       animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: "easeInOut" }}
     >
       <span className="text-5xl font-bold text-white tabular-nums leading-none">
         {count}

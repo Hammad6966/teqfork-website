@@ -23,7 +23,7 @@ const wordVariant = {
     opacity: 1,
     y: 0,
     skewX: 0,
-    transition: { duration: 0.5, ease: [0.215, 0.61, 0.355, 1] },
+    transition: { duration: 0.5, ease: "easeInOut" },
   },
 };
 
@@ -211,7 +211,7 @@ export function HeroSection() {
                   key={label}
                   variants={{
                     hidden:   { opacity: 0, scale: 0.8 },
-                    visible:  { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.215, 0.61, 0.355, 1] } },
+                    visible:  { opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeInOut" } },
                   }}
                 >
                   {/* Continuous float at a per-badge rate */}
@@ -270,7 +270,7 @@ export function HeroSection() {
                 className="inline-flex items-center gap-2 bg-[#00F5FF] text-black font-bold px-7 py-3.5 rounded-full text-sm hover:brightness-110 transition-all duration-200 animate-pulse-slow"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.0, duration: 0.5, ease: [0.215, 0.61, 0.355, 1] }}
+                transition={{ delay: 1.0, duration: 0.5, ease: "easeInOut" }}
               >
                 Book Free AI Audit →
               </motion.a>
@@ -279,7 +279,7 @@ export function HeroSection() {
                 className="inline-flex items-center gap-2 border border-[rgba(0,245,255,0.4)] text-[#00F5FF] font-semibold px-7 py-3.5 rounded-full text-sm hover:bg-[rgba(0,245,255,0.08)] transition-colors duration-200"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1.1, duration: 0.5, ease: [0.215, 0.61, 0.355, 1] }}
+                transition={{ delay: 1.1, duration: 0.5, ease: "easeInOut" }}
               >
                 See Our Work
               </motion.a>
