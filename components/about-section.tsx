@@ -78,7 +78,7 @@ function MemberCard({ member }: { member: typeof team[0] }) {
         }}
       >
         {/* ── Photo area ────────────────────────────────────────────── */}
-        <div className="relative h-64 overflow-hidden">
+        <div className="relative h-40 md:h-64 overflow-hidden">
           {/* Image — scales up on hover */}
           <div
             className="w-full h-full"

@@ -63,7 +63,7 @@ type CaseStudy = typeof caseStudies[0];
 function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   return (
     <motion.div
-      className="w-[380px] h-[280px] flex-shrink-0 rounded-2xl overflow-hidden relative cursor-pointer"
+      className="w-[320px] md:w-[380px] h-[280px] flex-shrink-0 rounded-2xl overflow-hidden relative cursor-pointer"
       style={{ background: "rgba(255,255,255,0.05)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.1)" }}
       initial="initial"
       whileHover="hovered"
